@@ -1,0 +1,13 @@
+__pycache__/
+zoo5/
+.venv/
+.vscode/
+models/deploy_vgg16_places365.prototxt
+models/deploy_vgg16_places365.prototxtZone.Identifier
+models/vgg16_places365.caffemodel
+models/vgg16_places365.caffemodelZone.Identifier
+places365_full.zip
+zoo5_full/
+zoo5_full.zip
+vgg16_best.pth.tar
+vgg16_latest.pth.tar
