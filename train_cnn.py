@@ -11,6 +11,15 @@
 # full dataset training example: (1-2 hours)
 # 4050 (45-60 mins)
 # python train_cnn.py zoo5_full/ --arch vgg16 --num_classes 5 --batch-size 16 --epochs 30 --lr 0.001 --pretrained --workers 2
+
+# 4050 IMPROVEMENTS:
+# Faster training (25-35 mins) - higher batch size if VRAM allows
+# python train_cnn.py zoo5_full/ --arch vgg16 --num_classes 5 --batch-size 24 --epochs 30 --lr 0.001 --pretrained --workers 3
+# Better accuracy (60-75 mins) - more epochs + lower LR
+# python train_cnn.py zoo5_full/ --arch vgg16 --num_classes 5 --batch-size 16 --epochs 50 --lr 0.0005 --pretrained --workers 2
+# Mixed precision for speed boost (35-45 mins)
+# python train_cnn.py zoo5_full/ --arch vgg16 --num_classes 5 --batch-size 20 --epochs 30 --lr 0.001 --pretrained --workers 3
+
 # 3080 (20-30 mins)
 # python train_cnn.py zoo5_full/ --arch vgg16 --num_classes 5 --batch-size 32 --epochs 30 --lr 0.001 --pretrained --workers 4
 # 3080 better accuracy

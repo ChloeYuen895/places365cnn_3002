@@ -30,7 +30,7 @@ import numpy as np
 
 # Paths relative to this script
 BASE = Path(__file__).resolve().parent
-MODEL_PATH = BASE / 'models' / 'v1_vgg16_best.pth.tar'
+MODEL_PATH = BASE / 'models' / 'v2_vgg16_best.pth.tar'
 
 # Your 5 custom classes (in alphabetical order as used during training)
 CLASS_NAMES = ['arctic', 'bamboo', 'desert', 'forest', 'grassland']

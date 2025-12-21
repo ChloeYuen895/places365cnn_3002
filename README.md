@@ -54,12 +54,42 @@ The included `zoo5/` dataset contains 5 scene categories:
    ```
 
 3. **Install dependencies:**
+
+   **Option A: For inference only (OpenCV-based GUI and webcam):**
    ```bash
-   # For inference only (OpenCV-based)
    pip install -r requirements.txt
+   ```
+
+   **Option B: For training + inference (PyTorch required):**
    
-   # For training (PyTorch with CUDA support)
+   Choose the appropriate PyTorch installation based on your system:
+   
+   ```bash
+   # CUDA 12.1 (recommended for RTX 4000 series, RTX 3000 series)
    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+   
+   # CUDA 11.8 (for older GPUs or compatibility)
+   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+   
+   # CPU-only (no CUDA, slower training)
+   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+   ```
+   
+   Then install remaining dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Verify installation:**
+   ```bash
+   # Check CUDA setup (for training)
+   python check_cuda.py
+   
+   # Quick test - verify PyTorch can detect GPU
+   python -c "import torch; print('CUDA available:', torch.cuda.is_available()); print('GPU count:', torch.cuda.device_count())"
+   
+   # Test OpenCV installation
+   python -c "import cv2; print('OpenCV version:', cv2.__version__)"
    ```
 
 ## Usage
@@ -186,17 +216,58 @@ places365cnn_3002/
 ### Common Issues
 
 1. **Module not found errors**: Ensure virtual environment is activated
-2. **CUDA out of memory**: Reduce batch size or use CPU-only mode
+2. **CUDA out of memory**: Reduce batch size or use CPU-only mode  
 3. **Camera not detected**: Check camera permissions and driver installation
 4. **Import errors**: Install missing dependencies from requirements.txt
 
-### GPU Setup
+### PyTorch Installation Issues
+
+**Wrong CUDA version:**
 ```bash
-# Verify CUDA installation
+# Uninstall current PyTorch
+pip uninstall torch torchvision torchaudio
+
+# Reinstall with correct CUDA version
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
+**CUDA not detected:**
+```bash
+# Check NVIDIA driver
 nvidia-smi
 
-# Check PyTorch GPU access
-python -c "import torch; print(torch.cuda.is_available())"
+# Verify PyTorch CUDA build
+python -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA version:', torch.version.cuda); print('CUDA available:', torch.cuda.is_available())"
+```
+
+**Mixed installations:**
+```bash
+# Clean reinstall
+pip uninstall torch torchvision torchaudio
+pip cache purge
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
+### GPU Setup & Verification
+
+**Check NVIDIA driver and CUDA:**
+```bash
+# Verify CUDA installation and driver
+nvidia-smi
+
+# Check CUDA compiler version  
+nvcc --version
+```
+
+**Verify PyTorch CUDA setup:**
+```bash
+# Complete GPU information
+python check_cuda.py
+
+# Quick checks
+python -c "import torch; print('CUDA available:', torch.cuda.is_available())"
+python -c "import torch; print('GPU name:', torch.cuda.get_device_name(0))" 
+python -c "import torch; print('CUDA version:', torch.version.cuda)"
 ```
 
 ## Citation

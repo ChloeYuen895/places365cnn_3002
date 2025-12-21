@@ -10,3 +10,6 @@ places365_full.zip
 zoo5_full/
 vgg16_best.pth.tar
 vgg16_latest.pth.tar
+isd_images/
+isd_images.zip
+isd_vgg16_best.pth.tar
